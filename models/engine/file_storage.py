@@ -3,13 +3,7 @@
 
 import json
 import os
-from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.city import City
-from models.amenity import Amenity
-from models.state import State
-from models.review import Review
+
 
 class FileStorage:
     """class responsible of storing data"""
@@ -41,11 +35,18 @@ class FileStorage:
     def reload(self):
         """deserializes the JSON file to __objects"""
 
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.city import City
+        from models.amenity import Amenity
+        from models.state import State
+        from models.review import Review
         dct = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'City': City, 'Amenity': Amenity, 'State': State,
                'Review': Review}
         if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, mode="r", encoding="utf-8") as json_file:
+            with open(FileStorage.__file_path, "r") as json_file:
                 file_str = json_file.read()
                 dictio_obj = json.loads(file_str)
                 for value in dictio_obj.values():
